@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-4xl;
+    }
+    input {
+        @apply  rounded-lg border-transparent appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent;
+    }
+}
+
+@layer components {
+    .mybtn {
+        @apply bg-purple-600 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200;
+    }
+    .detail-properties dt {
+        @apply text-2xl font-bold pt-4 pt-2;
+    }
+    .detail-properties dd dt {
+        @apply text-lg font-bold py-2;
+    }
+    .detail-properties dd {
+        @apply pl-4;
+    }
+    .credit-name:after {
+        background-color: blue;
+        position: absolute;
+        overflow: hidden;
+        content: " ..................................................................................... ";
+    }
+}
+
