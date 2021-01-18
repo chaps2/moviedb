@@ -1,5 +1,4 @@
-const windmill = require('@windmill/react-ui/config')
-module.exports = windmill({
+module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -8,5 +7,7 @@ module.exports = windmill({
   variants: {
     extend: {},
   },
-  plugins: [],
-})
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
+}

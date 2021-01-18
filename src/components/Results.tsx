@@ -7,27 +7,29 @@ type ResultsProps = {
 }
 
 const Results: FC<ResultsProps> = ({results, DetailLink, type}:ResultsProps) => {
+  const renderDetail = (item) => {
+
+  const media_type = item.media_type ?? type;
+    switch (media_type) {
+      case 'person':
+        return item.known_for_department + ' - ' + item.known_for.slice(0, 3).map(item => item.title ?? item.name).join(', ');
+      default:
+        return item.overview;
+    }
+  }
+
   return (
-    <table className="w-full">
-        <thead>
-            <tr>
-            <th>Name</th>
-              <th>Detail</th>
-              <th>Type</th>
-            </tr>
-        </thead>
-        <tbody>
-        {results?.map((item) => 
-          <tr key={item.id}>
-            <td>
-              <DetailLink className="underline" type={item.media_type ?? type} id={item.id}>{item.title ?? item.name}</DetailLink>
-            </td>
-            <td>{item.overview}</td>
-            <td>{item.media_type ?? type}</td>
-          </tr>
-        )}
-        </tbody>
-    </table>
+    <div className="w-full">
+      {results?.map((item) => 
+        <div className="py-2">
+          <div>
+            <h3 className="font-bold text-2xl inline"><DetailLink type={item.media_type ?? type} id={item.id}>{item.title ?? item.name}</DetailLink></h3>
+             {item.media_type && <span> ({item.media_type})</span>}
+          </div>
+          <p className="line-clamp-2">{renderDetail(item)}</p>
+        </div>
+      )}
+    </div>
   );
 }
 

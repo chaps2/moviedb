@@ -71,7 +71,7 @@ const AutoSearch = (props: SearchProps) => {
       <div className="relative" ref={suggestionsWrapperRef}>
       <label>
         <span className="invisible absolute">Search</span>
-        <input value={searchTerm} placeholder="Movie, TV show, or person" onChange={onChange} onKeyUp={onKeyPress} type="search" autoFocus/>
+        <input value={searchTerm} className="w-auto" size={30} placeholder="Movie, TV show, or person" onChange={onChange} onKeyUp={onKeyPress} type="search" autoFocus/>
       </label>  
       {displaySuggestions && 
         <div className="h-64 overflow-auto max-h-screen absolute rounded-lg border-transparent appearance-none border border-gray-300 py-2 bg-white text-gray-700 shadow-sm inset-x-0 mt-1">
