@@ -1,4 +1,4 @@
-# Andy Chapman, Sky Go Test
+# Movie DB
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
