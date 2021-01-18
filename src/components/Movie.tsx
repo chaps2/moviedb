@@ -44,7 +44,6 @@ const Movie = ({id, DetailLink}: MovieProps) => {
     'No crew details available.'
   ;
   
-  // Return the App component.
   return (
     details ?
     <div>

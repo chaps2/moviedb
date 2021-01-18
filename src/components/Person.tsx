@@ -60,7 +60,6 @@ const Person = ({id, DetailLink}: PersonProps) => {
     'Zero crew credits.'
   ;
 
-  // Return the App component.
   return (
     details ?
     <div>

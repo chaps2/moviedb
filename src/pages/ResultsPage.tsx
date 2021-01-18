@@ -33,7 +33,7 @@ const ResultsPage = () => {
           }
           else {
             setResults([]);
-            setResultsStatus("There was a problem. Please try again.");
+            setResultsStatus(searchTerm === "" ? "Please enter a search term." : "There was a problem. Please try again.");
           }
         },
         (error) => {

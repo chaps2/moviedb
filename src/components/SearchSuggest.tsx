@@ -67,9 +67,12 @@ const AutoSearch = (props: SearchProps) => {
   }
 
   return (
-    <div className="flex space-x-3">
+    <div role="search" className="flex space-x-3">
       <div className="relative" ref={suggestionsWrapperRef}>
-      <input value={searchTerm} placeholder="Movie, TV show, or person" onChange={onChange} onKeyUp={onKeyPress} type="search" autoFocus/>
+      <label>
+        <span className="invisible absolute">Search</span>
+        <input value={searchTerm} placeholder="Movie, TV show, or person" onChange={onChange} onKeyUp={onKeyPress} type="search" autoFocus/>
+      </label>  
       {displaySuggestions && 
         <div className="h-64 overflow-auto max-h-screen absolute rounded-lg border-transparent appearance-none border border-gray-300 py-2 bg-white text-gray-700 shadow-sm inset-x-0 mt-1">
           <ul>
@@ -87,7 +90,7 @@ const AutoSearch = (props: SearchProps) => {
         </div>
       }
       </div>
-      <button onClick={onClick} className="mybtn">Search</button>
+      <button onClick={onClick} role="button" name="search" className="mybtn">Search</button>
     </div>
   );
 }

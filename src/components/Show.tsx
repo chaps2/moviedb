@@ -46,7 +46,6 @@ const Show = ({id, DetailLink}: ShowProps) => {
     'No crew details available.'
   ;
 
-  // Return the App component.
   return (
     details ?
     <div>

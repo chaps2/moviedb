@@ -15,6 +15,7 @@ Installed tailwindcss and autoprefixer as dev dependencies and ran `npx tailwind
 * Use [Chakra](https://chakra-ui.com/) for built-in accessibility and re-use.
 * Use [Framer Motion](https://github.com/framer/motion).
 * Set up Error Bounadries.
+* Use a component library or move all tailwind into styled components.
 
 ## Issues
 * `BrowserRouter` not working with the snowpack dev server hence using `HashRouter` - needs service worker.
