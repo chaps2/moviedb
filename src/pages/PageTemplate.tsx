@@ -25,7 +25,7 @@ const PageTemplate = ({search, children, variant = "normal"}: PageTemplateProps)
         </nav>
       </header>
       <main className="flex-grow px-4 py-4 flex w-full">
-        <div className={"max-w-screen-lg w-full" + (variant === "centered" ? " m-auto" : "")}>
+        <div className={"max-w-screen-lg w-full mx-auto" + (variant === "centered" ? " my-auto" : "")}>
           {children}
         </div>
       </main>

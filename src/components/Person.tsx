@@ -48,12 +48,12 @@ const Person = ({id, DetailLink}: PersonProps) => {
       <div>
         <h1 className="mb-4">{details?.name}</h1>
         <Card media={media} content={
-          <Properties propertyPairs={mainProperties}/>
+          <Properties id={'base'} propertyPairs={mainProperties}/>
         }/>
         <section className="mt-4">
-          <Properties propertyPairs={[
-            {name: "Movie credits", "value": <Properties propertyPairs={movieCreditProperties}/>},
-            {name: "TV credits", "value": <Properties propertyPairs={tvCreditProperties}/>}
+          <Properties id={'credits'} propertyPairs={[
+            {name: "Movie credits", "value": <Properties id={'movie'} propertyPairs={movieCreditProperties}/>},
+            {name: "TV credits", "value": <Properties id={'cast'} propertyPairs={tvCreditProperties}/>}
           ]}/>
         </section>
       </div>  

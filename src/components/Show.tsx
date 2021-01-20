@@ -41,10 +41,10 @@ const Show = ({id, DetailLink}: ShowProps) => {
       <div>
         <h1 className="mb-4">{details?.name}</h1>
         <Card media={media} content={
-          <Properties propertyPairs={mainProperties}/>
+          <Properties id={'base'} propertyPairs={mainProperties}/>
         }/>
         <section className="mt-4">
-          <Properties propertyPairs={castProperties}/>
+          <Properties id={'cast'}propertyPairs={castProperties}/>
         </section>
       </div>  
     )

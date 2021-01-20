@@ -5,11 +5,12 @@ type PropertiesProps = {
     name: any;
     value: any;
   }[];
+  id: string;
   policy?: "hide" | "placeholder";
   placeholder?: string;
 }
 
-const Properties = ({propertyPairs, policy = "placeholder", placeholder = "n/a"}: PropertiesProps) => {
+const Properties = ({propertyPairs, id, policy = "placeholder", placeholder = "n/a"}: PropertiesProps) => {
 
   const Property = ({name, value}) => (
     <>
@@ -19,11 +20,11 @@ const Properties = ({propertyPairs, policy = "placeholder", placeholder = "n/a"}
   );
 
   return (
-    <dl>
+    <dl key={id}>
       {propertyPairs.map((property) => {
         return (
           (property.value || policy === "placeholder") &&
-            <Property name={property.name} value={property.value || placeholder}/>
+            <Property key={id + property.name} name={property.name} value={property.value || placeholder}/>
         )
       })}        
     </dl>
