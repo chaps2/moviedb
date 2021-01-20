@@ -9,7 +9,7 @@ type PropertiesProps = {
   placeholder?: string;
 }
 
-const Properties = ({propertyPairs, policy = "hide", placeholder = "n/a"}: PropertiesProps) => {
+const Properties = ({propertyPairs, policy = "placeholder", placeholder = "n/a"}: PropertiesProps) => {
 
   const Property = ({name, value}) => (
     <>
@@ -22,13 +22,10 @@ const Properties = ({propertyPairs, policy = "hide", placeholder = "n/a"}: Prope
     <dl>
       {propertyPairs.map((property) => {
         return (
-          (property.value || policy !== "hide") ?
-            <Property name={property.name} value={property.value}/>
-          :
-            <Property name={property.name} value={placeholder}/>
-          )
-        }
-      )}        
+          (property.value || policy === "placeholder") &&
+            <Property name={property.name} value={property.value || placeholder}/>
+        )
+      })}        
     </dl>
   );
 }

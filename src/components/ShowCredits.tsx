@@ -1,4 +1,5 @@
 import React from 'react';
+import groupBy from 'lodash/groupBy';
 
 type ShowCreditsProps = {
   type: string;
@@ -16,31 +17,21 @@ type PersonCredit = {
 }
 
 const ShowCredits = ({credits, DetailLink, ...props}: ShowCreditsProps) => {
-  const persons: PersonCredit[] = [];
 
   if (credits && credits.length > 0) {
     // Gather credits by id.
-    credits?.forEach((credit: any) => {
-      if (!persons[credit.id]) {
-        persons[credit.id] = {
-          id: credit.id,
-          name: credit[props.titleIdentifier],
-          credits: [credit]
-        };
-      }
-      else {
-        persons[credit.id].credits.push(credit);
-      }
-    });
+    const persons = groupBy(credits, (credit: any) => credit.id);
 
     return (
       <ul>
-        {persons.map((item: any) => {
-          const creditString = item.credits.map((credit: any) => credit[props.roleIdentifier]).join(", ");
+        {Object.keys(persons).map((id) => {
+          const credits = persons[id];
+          const creditString = credits.map((credit: any) => credit[props.roleIdentifier]).join(", ");
+          const name = credits[0][props.titleIdentifier];
           return (
-            <li key={item.id} className="flex flex-nowrap border-red-500 border-bottom">
+            <li key={id} className="flex flex-nowrap border-red-500 border-bottom">
               <div className="flex-shrink">
-                <DetailLink className="underline hover:text-blue-900" type={props.type} id={item.id}>{item.title ?? item.name}</DetailLink>
+                <DetailLink className="underline hover:text-blue-900" type={props.type} id={id}>{name}</DetailLink>
               </div>
               <div className="credit-role flex-grow text-right">
                 {creditString ? creditString : ''}
