@@ -1,37 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import ShowCredits from './ShowCredits';
 import { Card, Properties } from '../styledcomponents';
+import { TMDBMovieDS3, ShowDO } from '../utility/DataSource';
 
 type ShowProps = {
   id: number;
   DetailLink: any;
 }
 
-type ShowDO = {
-  name: string;
-  overview: string;
-  poster_path: string;
-  number_of_seasons: number;
-  number_of_episodes: number;
-  credits: {
-    cast: []
-    crew: []
-  };
-}
-
 const Show = ({id, DetailLink}: ShowProps) => {
   const [details, setDetails] = useState<ShowDO | undefined>(undefined);
 
+  const tmdb = new TMDBMovieDS3();
+
   useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/tv/${id}?append_to_response=credits&api_key=d6e80f5f86d7dd6c67ac00783d50af52`, {mode: 'cors'})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setDetails (result);
-        },
-        (error) => {
-          console.log(error);
-        }
+    tmdb.getShow((id)).then(
+        result => setDetails(result),
+        error => console.log(error)
       );
   }, []);
   

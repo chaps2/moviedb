@@ -10,12 +10,6 @@ type ShowCreditsProps = {
   placeHolder: string;
 }
 
-type PersonCredit = {
-  id: number;
-  name: string;
-  credits: any[];
-}
-
 const ShowCredits = ({credits, DetailLink, ...props}: ShowCreditsProps) => {
 
   if (credits && credits.length > 0) {
@@ -29,7 +23,7 @@ const ShowCredits = ({credits, DetailLink, ...props}: ShowCreditsProps) => {
           const creditString = credits.map((credit: any) => credit[props.roleIdentifier]).join(", ");
           const name = credits[0][props.titleIdentifier];
           return (
-            <li key={id} className="flex flex-nowrap border-red-500 border-bottom">
+            <li key={id} className="flex flex-nowrap border-b border-gray-300 my-2">
               <div className="flex-shrink">
                 <DetailLink className="underline hover:text-blue-900" type={props.type} id={id}>{name}</DetailLink>
               </div>

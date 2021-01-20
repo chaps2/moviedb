@@ -1,40 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import ShowCredits from './ShowCredits';
 import { Card, Properties } from '../styledcomponents';
+import { TMDBMovieDS3, PersonDO } from '../utility/DataSource';
 
 type PersonProps = {
   id: number;
   DetailLink: any;
 }
 
-type PersonDO = {
-  name: string;
-  biography: string;
-  place_of_birth: string;
-  profile_path: string;
-  movie_credits: {
-    cast: []
-    crew: []
-  };
-  tv_credits: {
-    cast: []
-    crew: []
-  };
-}
-
 const Person = ({id, DetailLink}: PersonProps) => {
   const [details, setDetails] = useState<PersonDO | undefined>(undefined);
 
+  const tmdb = new TMDBMovieDS3();
+
   useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/person/${id}?append_to_response=movie_credits,tv_credits&api_key=d6e80f5f86d7dd6c67ac00783d50af52`, {mode: 'cors'})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setDetails (result);
-        },
-        (error) => {
-          console.log(error);
-        }
+    tmdb.getPerson((id)).then(
+        result => setDetails(result),
+        error => console.log(error)
       );
   }, []);
   
