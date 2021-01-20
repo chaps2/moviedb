@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ShowCredits from './ShowCredits';
-import { Card } from '../styledcomponents';
+import { Card, Properties } from '../styledcomponents';
 
 type MovieProps = {
   id: number;
@@ -34,46 +34,36 @@ const Movie = ({id, DetailLink}: MovieProps) => {
       );
   }, []);
 
-  const cast = details?.credits?.cast?.length ? 
-    <ShowCredits credits={details.credits.cast} type="person" titleIdentifier="name" roleIdentifier="character" DetailLink={DetailLink}/>
-    :
-    'No cast details available.'
-  ;
-  
-  const crew = details?.credits?.crew?.length ? 
-    <ShowCredits credits={details.credits.crew} type="person" titleIdentifier="name" roleIdentifier="job" DetailLink={DetailLink}/>
-    :
-    'No crew details available.'
-  ;
-
   if (details) {
-    const media = 
-    <img width="100%" src={`http://image.tmdb.org/t/p/w780/${details.poster_path}`} alt={`Poster for ${details.title}`}/>
+    const cast = <ShowCredits credits={details?.credits?.cast} type="person" titleIdentifier="name" roleIdentifier="character" DetailLink={DetailLink} placeHolder='No cast details available.'/>;
+    const crew = <ShowCredits credits={details?.credits?.crew} type="person" titleIdentifier="name" roleIdentifier="job" DetailLink={DetailLink} placeHolder='No crew details available.'/>;
 
-    const content = (
-      <dl>
-        <dt className="md:pt-0">Overview</dt>
-          <dd>{details?.overview ?? "n/a"}</dd>
-        <dt>Runtime</dt>
-          <dd>{details?.runtime} mins</dd>
-      </dl>
-    );
+    const media = <img width="100%" src={`http://image.tmdb.org/t/p/w780/${details.poster_path}`} alt={`Poster for ${details.title}`}/>
+
+    const mainProperties = [
+      {name: "Overview", value: details?.overview},
+      {name: "Runtime", value: (details?.runtime ? details?.runtime + ' mins' : null)}
+    ];
+
+    const castProperties = [
+      {name: "Cast", value: cast},
+      {name: "Crew", value: crew}
+    ];
 
     return (
-      <div>
+      <>
         <h1 className="mb-4">{details?.title}</h1>
-        <Card media={media} content={content}/>
-        <dl className="mt-4">
-          <dt>Cast</dt>
-            <dd>{cast}</dd>
-          <dt>Crew</dt>
-            <dd>{crew}</dd>
-        </dl>
-      </div>  
+        <Card media={media} content={
+          <Properties propertyPairs={mainProperties}/>
+        }/>
+        <section className="mt-4">
+          <Properties propertyPairs={castProperties}/>
+        </section>
+      </>  
     )
   }
   else {
-    return (<p>Loading...</p>);
+    return <p>Loading...</p>;
   }
 }
 

@@ -16,13 +16,13 @@
         @apply bg-purple-600 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200;
     }
     dt {
-        @apply text-2xl font-bold pt-4;
+        @apply text-2xl font-bold;
     }
     dd dt {
         @apply text-lg font-bold py-2;
     }
     dd {
-        @apply pb-0;
+        @apply pb-2;
     }
     .credit-name:after {
         background-color: blue;

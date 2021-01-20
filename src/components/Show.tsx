@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ShowCredits from './ShowCredits';
+import { Card, Properties } from '../styledcomponents';
 
 type ShowProps = {
   id: number;
@@ -9,9 +10,9 @@ type ShowProps = {
 type ShowDO = {
   name: string;
   overview: string;
+  poster_path: string;
   number_of_seasons: number;
   number_of_episodes: number;
-  number_of: number;
   credits: {
     cast: []
     crew: []
@@ -34,38 +35,38 @@ const Show = ({id, DetailLink}: ShowProps) => {
       );
   }, []);
   
-  const cast = details?.credits?.cast?.length ? 
-    <ShowCredits credits={details.credits.cast} type="person" titleIdentifier="name" roleIdentifier="character" DetailLink={DetailLink}/>
-    :
-    'No cast details available.'
-  ;
-  
-  const crew = details?.credits?.crew?.length ? 
-    <ShowCredits credits={details.credits.crew} type="person" titleIdentifier="name" roleIdentifier="job" DetailLink={DetailLink}/>
-    :
-    'No crew details available.'
-  ;
+  if (details) {
+    const cast = <ShowCredits credits={details?.credits?.cast} type="person" titleIdentifier="name" roleIdentifier="character" DetailLink={DetailLink} placeHolder='No cast details available.'/>;
+    const crew = <ShowCredits credits={details?.credits?.crew} type="person" titleIdentifier="name" roleIdentifier="job" DetailLink={DetailLink} placeHolder='No crew details available.'/>;
+    
+    const media = <img width="100%" src={`http://image.tmdb.org/t/p/w780/${details.poster_path}`} alt={`Poster for ${details.name}`}/>
 
-  return (
-    details ?
-    <div>
-    <h1>{details?.name}</h1>
-    <dl>
-      <dt>Overview</dt>
-        <dd>{details?.overview ?? "n/a"}</dd>
-      <dt>Number of seasons</dt>
-        <dd>{details?.number_of_seasons ?? 'n/a'}</dd>
-      <dt>Number of episodes</dt>
-        <dd>{details?.number_of_episodes ?? 'n/a'}</dd>
-      <dt>Cast</dt>
-        <dd>{cast}</dd>
-      <dt>Crew</dt>
-        <dd>{crew}</dd>
-    </dl>
-    </div>
-    :
-    <p>Loading...</p> 
-  );
+    const mainProperties = [
+      {name: "Overview", value: details?.overview},
+      {name: "Number of seasons", value: details?.number_of_seasons},
+      {name: "Number of episodes", value: details?.number_of_episodes}
+    ];
+
+    const castProperties = [
+      {name: "Cast", value: cast},
+      {name: "Crew", value: crew}
+    ];
+
+    return (
+      <div>
+        <h1 className="mb-4">{details?.name}</h1>
+        <Card media={media} content={
+          <Properties propertyPairs={mainProperties}/>
+        }/>
+        <section className="mt-4">
+          <Properties propertyPairs={castProperties}/>
+        </section>
+      </div>  
+    )
+  }
+  else {
+    return <p>Loading...</p> 
+  };
 }
 
 export default Show;

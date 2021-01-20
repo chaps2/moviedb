@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ShowCredits from './ShowCredits';
+import { Card, Properties } from '../styledcomponents';
 
 type PersonProps = {
   id: number;
@@ -10,6 +11,7 @@ type PersonDO = {
   name: string;
   biography: string;
   place_of_birth: string;
+  profile_path: string;
   movie_credits: {
     cast: []
     crew: []
@@ -36,63 +38,48 @@ const Person = ({id, DetailLink}: PersonProps) => {
       );
   }, []);
   
-  const cast = details?.movie_credits?.cast?.length ? 
-    <ShowCredits credits={details.movie_credits.cast} type="movie" titleIdentifier="title" roleIdentifier="character" DetailLink={DetailLink}/>
-    :
-    'Zero cast credits.'
-  ;
+  if (details) {
+    const cast = <ShowCredits credits={details?.movie_credits?.cast} type="movie" titleIdentifier="title" roleIdentifier="character" DetailLink={DetailLink} placeHolder='Zero cast credits.'/>;
+    const crew = <ShowCredits credits={details?.movie_credits?.crew} type="movie" titleIdentifier="title" roleIdentifier="job" DetailLink={DetailLink} placeHolder='Zero crew credits.'/>;
 
-  const crew = details?.movie_credits?.crew?.length ? 
-    <div><ShowCredits credits={details.movie_credits.crew} type="movie" titleIdentifier="title" roleIdentifier="job" DetailLink={DetailLink}/></div>
-    :
-    'Zero crew credits.'
-  ;
+    const tvcast = <ShowCredits credits={details?.tv_credits?.cast} type="tv" titleIdentifier="name" roleIdentifier="character" DetailLink={DetailLink} placeHolder='Zero cast credits.'/>;
+    const tvcrew = <ShowCredits credits={details?.tv_credits?.crew} type="tv" titleIdentifier="name" roleIdentifier="job" DetailLink={DetailLink} placeHolder='Zero crew credits.'/>;
 
-  const tvcast = details?.tv_credits?.cast?.length ? 
-    <ShowCredits credits={details.tv_credits.cast} type="tv" titleIdentifier="name" roleIdentifier="character" DetailLink={DetailLink}/>
-    :
-    'Zero cast credits.'
-  ;
+    const media = <img width="100%" src={`http://image.tmdb.org/t/p/h632/${details.profile_path}`} alt={`Poster for ${details?.name}`}/>
 
-  const tvcrew = details?.tv_credits?.crew?.length ? 
-    <div><ShowCredits credits={details.tv_credits.crew} type="tv" titleIdentifier="name" roleIdentifier="job" DetailLink={DetailLink}/></div>
-    :
-    'Zero crew credits.'
-  ;
+    const mainProperties = [
+      {name: "Biography", value: details?.biography},
+      {name: "Place of birth", value: details?.place_of_birth},
+    ];
 
-  return (
-    details ?
-    <div>
-    <h1>{details?.name}</h1>
-    <dl>
-      <dt className="sticky">Biography</dt>
-        <dd>{details?.biography}</dd>
-      <dt>Place of birth</dt>
-        <dd>{details?.place_of_birth}</dd>
-      <dt>Movie credits</dt>     
-        <dd>
-          <dl>
-            <dt>Cast credits</dt>     
-              <dd>{cast}</dd>
-            <dt>Crew credits</dt>     
-              <dd>{crew}</dd>
-          </dl>
-        </dd>
-      <dt>TV credits</dt>     
-        <dd>
-          <dl>
-            <dt>Cast credits</dt>     
-              <dd>{tvcast}</dd>
-            <dt>Crew credits</dt>     
-              <dd>{tvcrew}</dd>
-          </dl>
-        </dd>
-    </dl>
+    const movieCreditProperties = [
+      {name: "Cast member", value: cast},
+      {name: "Crew member", value: crew}
+    ];
 
-    </div>
-    :
-    <p>Loading...</p>
-  );
+    const tvCreditProperties = [
+      {name: "Cast member", value: tvcast},
+      {name: "Crew member", value: tvcrew}
+    ];
+    
+    return (
+      <div>
+        <h1 className="mb-4">{details?.name}</h1>
+        <Card media={media} content={
+          <Properties propertyPairs={mainProperties}/>
+        }/>
+        <section className="mt-4">
+          <Properties propertyPairs={[
+            {name: "Movie credits", "value": <Properties propertyPairs={movieCreditProperties}/>},
+            {name: "TV credits", "value": <Properties propertyPairs={tvCreditProperties}/>}
+          ]}/>
+        </section>
+      </div>  
+    )
+  }
+  else {
+    return <p>Loading...</p>;
+  }
 }
 
 export default Person;
