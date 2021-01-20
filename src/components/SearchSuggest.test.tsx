@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import SearchSuggest from './SearchSuggest';
 import type { DetailLinkType } from '../utility/Types';
 
-it('test search', () => {
+it('correctly calls the search handler when search button is clicked', () => {
   let handledType: string = "";
   let handledTerm: string = "";
 

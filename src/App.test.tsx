@@ -6,7 +6,7 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history'
 
 describe('<App/>', () => {
-  it('home page navigation', () => {
+  it('routes to the home page at /', () => {
     const history = createMemoryHistory();
  
     history.push('/');
@@ -20,7 +20,7 @@ describe('<App/>', () => {
     expect(document.body.contains(homePage.getByText(/The Movie DB/i)));
   });
 
-  it('results page navigation', () => {
+  it('routes to the results page at /results', () => {
     const history = createMemoryHistory();
 
     history.push('/results');
