@@ -6,6 +6,8 @@ import ResultsFilter from '../components/ResultsFilter';
 import { useLocation, useHistory } from 'react-router-dom';
 import DetailLink from './DetailLink';
 
+import { TMDBMovieDS3 } from '../utility/DataSource';
+
 const useQuery = () => new URLSearchParams(useLocation().search);
 
 const ResultsPage = () => {
@@ -21,26 +23,26 @@ const ResultsPage = () => {
   const history = useHistory();
   const handleFilterSelection = (type: string) => history.push(`/results?query=${searchTerm}&type=${type}`);
 
+  const tmdb = new TMDBMovieDS3();
+  
   useEffect(() => {
     setResultsStatus("Searching...");
-    fetch(`https://api.themoviedb.org/3/search/${searchType}?query=${searchTerm}&api_key=d6e80f5f86d7dd6c67ac00783d50af52`, {mode: 'cors'})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          if (result.results) {
-            setResults(result.results);
-            setResultsStatus(result.results.length > 0 ? "OK" : "No results found.");
-          }
-          else {
-            setResults([]);
-            setResultsStatus(searchTerm === "" ? "Please enter a search term." : "There was a problem. Please try again.");
-          }
-        },
-        (error) => {
-          setResultsStatus("There was a problem. Please try again.");
-          console.log(error);
+    tmdb.search(searchTerm, searchType).then(
+      result => {
+        if (result.results) {
+          setResults(result.results);
+          setResultsStatus(result.results.length > 0 ? "OK" : "No results found.");
         }
-      );
+        else {
+          setResults([]);
+          setResultsStatus(searchTerm === "" ? "Please enter a search term." : "There was a problem. Please try again.");
+        }
+      },
+      error => {
+        setResultsStatus("There was a problem. Please try again.");
+        console.log(error);
+      }
+   );
   }, [searchTerm, searchType]);
 
   const location = useLocation();

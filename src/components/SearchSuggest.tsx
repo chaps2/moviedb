@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect, FC} from 'react';
 import { Button } from '../styledcomponents'
 import type { DetailLinkType } from '../utility/Types';
+import { TMDBMovieDS3 } from '../utility/DataSource';
 
 type SearchProps = {
   handleSearchSubmit: (searchTerm: string, searchType: string) => void,
@@ -33,20 +34,18 @@ const AutoSearch = ({handleSearchSubmit, DetailLink, ...props}: SearchProps) => 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm (e.target.value);
 
+    const tmdb = new TMDBMovieDS3();
+  
     if (e.target.value.trim().length > 4) {
-      fetch(`https://api.themoviedb.org/3/search/multi?query=${e.target.value}&api_key=d6e80f5f86d7dd6c67ac00783d50af52`, {mode: 'cors'})
-      .then(res => res.json())
-      .then(
-        (result) => {
+      tmdb.search((e.target.value)).then(
+        result => {
           if (result.results) {
             setSuggestions(result.results);
             setDisplaySuggestions (true);
           }
         },
-        (error) => {
-          console.log(error);
-        }
-      );      
+        error => console.log(error)
+      );
     }
     else {
       setDisplaySuggestions (false);

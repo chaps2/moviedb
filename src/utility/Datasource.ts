@@ -50,6 +50,10 @@ export class TMDBMovieDS3 implements IMovieDS {
   getPerson = async (id: number) : Promise<PersonDO | undefined> => this.getDetail(id, 'person', ["movie_credits","tv_credits"]);
   getShow = async (id: number) : Promise<ShowDO | undefined> => this.getDetail(id, 'tv', ["credits"]);
 
+  search = async (query: string, type: string = "multi") : Promise<any | undefined> => {
+    return this.fetch(`search/${type}`, {"query": query});
+  }
+
   protected getDetail = async (id: number, type: string, append: string[] = []) => {
     const appendToResponse = append.length > 0 ? {"append_to_response" : append.join(",")} : {};
 
