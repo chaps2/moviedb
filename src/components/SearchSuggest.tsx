@@ -1,11 +1,13 @@
-import React, {useState, useRef, useEffect} from 'react';
-import { Link } from "react-router-dom";
+import React, {useState, useRef, useEffect, FC} from 'react';
+import { Button } from '../styledcomponents'
+import type { DetailLinkType } from '../utility/Types';
 
 type SearchProps = {
   handleSearchSubmit: (searchTerm: string, searchType: string) => void,
+  DetailLink: DetailLinkType;
 }
 
-const AutoSearch = (props: SearchProps) => {
+const AutoSearch = ({handleSearchSubmit, DetailLink, ...props}: SearchProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   
   const [displaySuggestions, setDisplaySuggestions] = useState(false);
@@ -53,7 +55,7 @@ const AutoSearch = (props: SearchProps) => {
 
   const handleSearch = () => {
     setDisplaySuggestions (false);
-    props.handleSearchSubmit(searchTerm, "multi");
+    handleSearchSubmit(searchTerm, "multi");
   } 
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -78,7 +80,7 @@ const AutoSearch = (props: SearchProps) => {
           <ul>
             {suggestions.length > 0 && suggestions.map((item: any, i) => 
               <li className="" key={item.id}>
-                <Link key-index={i+1} className="hover:bg-gray-200 block py-1 px-4" onClick={() => setDisplaySuggestions(false)} to={`/details/${item.media_type}/${item.id}`}>{item.name ?? item.title}</Link>
+                <DetailLink className="hover:bg-gray-200 block py-1 px-4" onClick={() => setDisplaySuggestions(false)} type={item.media_type} id={item.id}>{item.name ?? item.title}</DetailLink>
               </li>
             )}
             {suggestions.length === 0 &&
@@ -90,7 +92,7 @@ const AutoSearch = (props: SearchProps) => {
         </div>
       }
       </div>
-      <button onClick={onClick} role="button" name="search" className="mybtn">Search</button>
+      <Button type="primary" onClick={onClick}>Search</Button>
     </div>
   );
 }

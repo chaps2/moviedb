@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchSuggest from '../components/SearchSuggest';
+import DetailLink from './DetailLink';
 
 const RouterSearch = () => {
   const history = useHistory();
@@ -16,7 +17,7 @@ const RouterSearch = () => {
     }
   }
 
-  return <SearchSuggest handleSearchSubmit={handleSearchSubmit}/>;
+  return <SearchSuggest DetailLink={DetailLink} handleSearchSubmit={handleSearchSubmit}/>;
 }
 
 export default RouterSearch;

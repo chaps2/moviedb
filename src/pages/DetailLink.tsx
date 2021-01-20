@@ -1,13 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import type { DetailLinkProps } from '../utility/Types'
 
-type DetailLinkProps = {
-  type: string;
-  id: string;
-  children: React.ReactElement;
-}
-
-const DetailLink = ({type, id, children, ...props}: DetailLinkProps) => {
+const DetailLink = ({type, id, children, className, ...props}: DetailLinkProps) => {
   const resultsPath = `/details/${type}/${id}`;
   
   return <Link to={resultsPath} {...props}>{children}</Link>

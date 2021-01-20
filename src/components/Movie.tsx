@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ShowCredits from './ShowCredits';
+import { Card } from '../styledcomponents';
 
 type MovieProps = {
   id: number;
@@ -10,6 +11,7 @@ type MovieDO = {
   title: string;
   overview: string;
   runtime: number;
+  poster_path: string;
   credits: {
     cast: []
     crew: []
@@ -43,25 +45,36 @@ const Movie = ({id, DetailLink}: MovieProps) => {
     :
     'No crew details available.'
   ;
-  
-  return (
-    details ?
-    <div>
-    <h1>{details?.title}</h1>
-    <dl>
-      <dt>Overview</dt>
-        <dd>{details?.overview ?? "n/a"}</dd>
-      <dt>Runtime</dt>
-        <dd>{details?.runtime} mins</dd>
-      <dt>Cast</dt>
-        <dd>{cast}</dd>
-      <dt>Crew</dt>
-        <dd>{crew}</dd>
-    </dl>
-    </div>
-    :
-    <p>Loading...</p>
-  );
+
+  if (details) {
+    const media = 
+    <img width="100%" src={`http://image.tmdb.org/t/p/w780/${details.poster_path}`} alt={`Poster for ${details.title}`}/>
+
+    const content = (
+      <dl>
+        <dt className="md:pt-0">Overview</dt>
+          <dd>{details?.overview ?? "n/a"}</dd>
+        <dt>Runtime</dt>
+          <dd>{details?.runtime} mins</dd>
+      </dl>
+    );
+
+    return (
+      <div>
+        <h1 className="mb-4">{details?.title}</h1>
+        <Card media={media} content={content}/>
+        <dl className="mt-4">
+          <dt>Cast</dt>
+            <dd>{cast}</dd>
+          <dt>Crew</dt>
+            <dd>{crew}</dd>
+        </dl>
+      </div>  
+    )
+  }
+  else {
+    return (<p>Loading...</p>);
+  }
 }
 
 export default Movie;

@@ -49,7 +49,7 @@ const ResultsPage = () => {
     <div key="{location.key}">
     {resultsStatus === "OK" ?
       <div className="w-full">
-        <div className="flex">
+        <div className="flex py-2">
           <h2 className="flex-grow">Search results for: "{searchTerm}"</h2>
           <ResultsFilter handleFilterSelection={handleFilterSelection} filterSelection={searchType}/>
         </div>

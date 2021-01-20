@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, ButtonGroup } from '../styledcomponents';
 
 type ResultsFilterProps = {
   handleFilterSelection: (type: string) => void;
@@ -7,7 +8,7 @@ type ResultsFilterProps = {
 
 const ResultsFilter = ({ handleFilterSelection, filterSelection}: ResultsFilterProps) => {
 
-  const onClick = (e: React.MouseEvent<HTMLButtonElement>, media_type: string) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>, media_type: string) => {
     // Only call when changed.
     if (media_type !== filterSelection) {
       handleFilterSelection(media_type);
@@ -15,12 +16,12 @@ const ResultsFilter = ({ handleFilterSelection, filterSelection}: ResultsFilterP
   }
 
   return (
-    <div className="flex space-x-2">
-      <button type="button" onClick={(e) => onClick(e, "multi")} className={'focus:outline-none ' + (filterSelection === 'multi' ? 'underline' : '')}>All</button>
-      <button type="button" onClick={(e) => onClick(e, "movie")} className={'focus:outline-none ' + (filterSelection === 'movie' ? 'underline' : '')}>Movies</button>
-      <button type="button" onClick={(e) => onClick(e, "tv")} className={'focus:outline-none ' + (filterSelection === 'tv' ? 'underline' : '')}>TV Shows</button>
-      <button type="button" onClick={(e) => onClick(e, "person")} className={'focus:outline-none ' + (filterSelection === 'person' ? 'underline' : '')}>People</button>
-    </div>
+    <ButtonGroup>
+      <Button type="link" onClick={(e) => handleClick(e, "multi")} selected={filterSelection === 'multi'}>All</Button>
+      <Button type="link" onClick={(e) => handleClick(e, "movie")} selected={filterSelection === 'movie'}>Movies</Button>
+      <Button type="link" onClick={(e) => handleClick(e, "tv")} selected={filterSelection === 'tv'}>TV Shows</Button>
+      <Button type="link" onClick={(e) => handleClick(e, "person")} selected={filterSelection === 'person'}>People</Button>
+    </ButtonGroup>
   );
 }
 
