@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 type PageTemplateProps = {
   children: React.ReactElement;
   search?: React.ReactElement;
+  variant?: "centered" | "normal";
 }
 
-const PageTemplate = ({search, children}: PageTemplateProps) => {
+const PageTemplate = ({search, children, variant = "normal"}: PageTemplateProps) => {
 
   // Return the App component.
   return (
@@ -24,7 +25,7 @@ const PageTemplate = ({search, children}: PageTemplateProps) => {
         </nav>
       </header>
       <main className="flex-grow px-4 py-4 flex w-full">
-        <div className="max-w-screen-lg w-full m-auto">
+        <div className={"max-w-screen-lg w-full" + (variant === "centered" ? " m-auto" : "")}>
           {children}
         </div>
       </main>

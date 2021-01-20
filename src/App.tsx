@@ -12,7 +12,7 @@ const App = () => {
   return (
     <Switch>
       <Route exact={true} path="/">
-        <PageTemplate>
+        <PageTemplate variant="centered">
           <HomePage/>
         </PageTemplate>
       </Route>

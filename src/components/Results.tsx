@@ -22,7 +22,7 @@ const Results: FC<ResultsProps> = ({results, DetailLink, type}:ResultsProps) => 
   return (
     <div className="w-full">
       {results?.map((item) =>
-        <div className="py-2">
+        <div key={item.id} className="py-2">
           <SearchResult>
           <div>
             <h3 className="font-bold text-2xl inline"><DetailLink type={item.media_type ?? type} id={item.id}>{item.title ?? item.name}</DetailLink></h3>
