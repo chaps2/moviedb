@@ -13,7 +13,7 @@ ReactDOM.render(
   
   <React.StrictMode>
     <Router>
-      <App tmdbApiKey={appWindow.__TMDB_API_KEY__ ?? import.meta.env.SNOWPACK_PUBLIC_TMDB_API_KEY}/>
+      <App tmdbApiKey={appWindow.__TMDB_API_KEY__ ?? import.meta.env?.SNOWPACK_PUBLIC_TMDB_API_KEY}/>
     </Router>
   </React.StrictMode>,
   document.getElementById('root'),
@@ -21,6 +21,6 @@ ReactDOM.render(
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
-if (import.meta.hot) {
+if (import.meta.hot!) {
   import.meta.hot.accept();
 }

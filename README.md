@@ -23,7 +23,8 @@ Movie DB app. React-router is used for navigation and urls are used to pass stat
 After building the distribution, use the generated index.js and index.css as normal but set a variable called `__TMDB_API_KEY__` on the window object to supply the API key at runtime. See `src/public/index.html`.
 
 ## Issues
-* In dev mode, a change to App.tsx will require a page reload. See [Hot reload of React context provider causes default value to be given to consumers #1555](https://github.com/snowpackjs/snowpack/discussions/1555)
+* In dev mode, a change to App.tsx will require a page reload. See [Hot reload of React context provider causes default value to be given to consumers #1555](https://github.com/snowpackjs/snowpack/discussions/1555).
+* Build warnings due to `import.meta` type issue: [TypeScript issue for `import.meta` #1558](https://github.com/snowpackjs/snowpack/issues/1558). Workaround added to `index.tsx`.
 * `BrowserRouter` not working with the snowpack dev server hence using `HashRouter` - needs service worker.
 * No reload of results component if search parameters haven't changed.
 * The TMDB API key is hardcoded and is exposed to the client.
