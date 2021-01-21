@@ -27,4 +27,11 @@ module.exports = {
   buildOptions: {
     /* ... */
   },
+  optimize: {
+    "entrypoints": ["src/index.tsx"],
+    "bundle": true,
+    "minify": true,
+    "target": 'es2018',
+  }
+
 };
