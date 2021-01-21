@@ -2,7 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import ShowCredits from './ShowCredits';
 import { Card, Properties } from '../styledcomponents';
 
-import { DataServiceContext } from '../App';
+import { dataService } from '../App';
 import type { IMovieDS, PersonDO } from '../utility/DataSource';
 
 type PersonProps = {
@@ -13,10 +13,8 @@ type PersonProps = {
 const Person = ({id, DetailLink}: PersonProps) => {
   const [details, setDetails] = useState<PersonDO | undefined>(undefined);
 
-  const tmdb = useContext<IMovieDS>(DataServiceContext);
-
   useEffect(() => {
-    tmdb.getPerson((id)).then(
+    dataService.getPerson((id)).then(
         result => setDetails(result),
         error => console.log(error)
       );

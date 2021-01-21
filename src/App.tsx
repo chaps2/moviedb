@@ -9,6 +9,7 @@ import type { IMovieDS } from "./utility/DataSource";
 import { TMDBMovieDS3 } from "./utility/DataSource";
 
 export const DataServiceContext: React.Context<IMovieDS> = createContext(new TMDBMovieDS3("d6e80f5f86d7dd6c67ac00783d50af52") as IMovieDS);
+export const dataService: IMovieDS = new TMDBMovieDS3("d6e80f5f86d7dd6c67ac00783d50af52") as IMovieDS;
 
 const App = () => {
   

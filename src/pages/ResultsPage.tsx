@@ -6,7 +6,7 @@ import ResultsFilter from '../components/ResultsFilter';
 import { useLocation, useHistory } from 'react-router-dom';
 import DetailLink from './DetailLink';
 
-import { DataServiceContext } from '../App';
+import { dataService } from '../App';
 import type { IMovieDS } from '../utility/DataSource';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
@@ -24,11 +24,11 @@ const ResultsPage = () => {
   const history = useHistory();
   const handleFilterSelection = (type: string) => history.push(`/results?query=${searchTerm}&type=${type}`);
 
-  const tmdb = useContext<IMovieDS>(DataServiceContext);
+  // const tmdb = useContext<IMovieDS>(DataServiceContext);
 
   useEffect(() => {
     setResultsStatus("Searching...");
-    tmdb.search(searchTerm, searchType).then(
+    dataService.search(searchTerm, searchType).then(
       result => {
         if (result.results) {
           setResults(result.results);
