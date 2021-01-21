@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import ShowCredits from './ShowCredits';
 import { Card, Properties } from '../styledcomponents';
 
-import { dataService } from '../App';
-import type { IMovieDS, PersonDO } from '../utility/DataSource';
+import { DataServiceContext } from '../App';
+import type { PersonDO } from '../utility/DataSource';
 
 type PersonProps = {
   id: number;
@@ -12,6 +12,8 @@ type PersonProps = {
 
 const Person = ({id, DetailLink}: PersonProps) => {
   const [details, setDetails] = useState<PersonDO | undefined>(undefined);
+
+  const dataService = useContext(DataServiceContext);
 
   useEffect(() => {
     dataService.getPerson((id)).then(

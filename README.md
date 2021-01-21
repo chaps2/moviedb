@@ -3,7 +3,27 @@
 ## Overview
 Movie DB app. React-router is used for navigation and urls are used to pass state to page views. All router logic is contained within App and the "pages" components - i.e.components in the components folder do not depend on the router for simpler unit testing and re-use.
 
+## Set-up
+### Run in dev mode
+
+1. Add a local `.env` file e.g. `.env.development.local` containing the environment variable `SNOWPACK_PUBLIC_TMDB_API_KEY` set to your [The Movie DB API Key](https://developers.themoviedb.org/3/getting-started/introduction). E.g.:
+
+    ```sh
+    SNOWPACK_PUBLIC_TMDB_API_KEY="d6e1231236d7dd6c67ac00783d123123"
+    ```
+
+2. Run the dev server:
+
+    ```sh
+    npm start
+    ```
+
+### Run in production
+
+After building the distribution, use the generated index.js and index.css as normal but set a variable called `__TMDB_API_KEY__` on the window object to supply the API key at runtime. See `src/public/index.html`.
+
 ## Issues
+* In dev mode, a change to App.tsx will require a page reload. See [Hot reload of React context provider causes default value to be given to consumers #1555](https://github.com/snowpackjs/snowpack/discussions/1555)
 * `BrowserRouter` not working with the snowpack dev server hence using `HashRouter` - needs service worker.
 * No reload of results component if search parameters haven't changed.
 * The TMDB API key is hardcoded and is exposed to the client.

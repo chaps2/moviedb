@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import PageTemplate from './pages/PageTemplate';
 import HomePage from './pages/HomePage';
 import ResultsPage from './pages/ResultsPage';
@@ -8,12 +8,18 @@ import { Switch, Route } from "react-router-dom";
 import type { IMovieDS } from "./utility/DataSource";
 import { TMDBMovieDS3 } from "./utility/DataSource";
 
-export const dataService: IMovieDS = new TMDBMovieDS3("d6e80f5f86d7dd6c67ac00783d50af52") as IMovieDS;
+type AppProps = {
+  tmdbApiKey: string;
+};
 
-const App = () => {
+export const DataServiceContext: React.Context<IMovieDS> = createContext({} as IMovieDS);
+
+const App = ({tmdbApiKey}: AppProps) => {
+  const dataService: IMovieDS = new TMDBMovieDS3(tmdbApiKey) as IMovieDS;
   
-  // Return the App component.
+  // Return the App components.
   return (
+    <DataServiceContext.Provider value={dataService}>
     <Switch>
       <Route exact={true} path="/">
         <PageTemplate variant="centered">
@@ -31,6 +37,7 @@ const App = () => {
         </PageTemplate>
       </Route>
     </Switch>
+    </DataServiceContext.Provider>
   );
 }
 

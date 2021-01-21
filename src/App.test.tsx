@@ -13,7 +13,7 @@ describe('<App/>', () => {
 
     const homePage = render(
       <Router history={history}>
-        <App />
+        <App tmdbApiKey={import.meta.env.SNOWPACK_PUBLIC_TMDB_API_KEY} />
       </Router>
     );
 
@@ -27,7 +27,7 @@ describe('<App/>', () => {
 
     const resultsPage = render(
       <Router history={history}>
-        <App />
+        <App tmdbApiKey={import.meta.env.SNOWPACK_PUBLIC_TMDB_API_KEY} />
       </Router>
     );
 

@@ -1,8 +1,8 @@
-import React, {useEffect, useState } from 'react';
+import React, {useEffect, useState, useContext } from 'react';
 import ShowCredits from './ShowCredits';
 import { Card, Properties } from '../styledcomponents';
 
-import { dataService } from '../App';
+import { DataServiceContext } from '../App';
 import type { MovieDO } from '../utility/DataSource';
 
 type MovieProps = {
@@ -12,6 +12,8 @@ type MovieProps = {
 
 const Movie = ({id, DetailLink}: MovieProps) => {
   const [details, setDetails] = useState<MovieDO | undefined>(undefined);
+
+  const dataService = useContext(DataServiceContext);
 
   useEffect(() => {
     dataService.getMovie((id)).then(

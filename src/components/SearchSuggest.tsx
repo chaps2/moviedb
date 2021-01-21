@@ -1,8 +1,8 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useContext} from 'react';
 import { Button } from '../styledcomponents'
 import type { DetailLinkType } from '../utility/Types';
 
-import { dataService } from '../App';
+import { DataServiceContext } from '../App';
 
 type SearchProps = {
   handleSearchSubmit: (searchTerm: string, searchType: string) => void,
@@ -15,6 +15,8 @@ const AutoSearch = ({handleSearchSubmit, DetailLink, ...props}: SearchProps) => 
   const [displaySuggestions, setDisplaySuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const suggestionsWrapperRef = useRef<any>();
+
+  const dataService = useContext(DataServiceContext);
 
   useEffect(() => {
     if (displaySuggestions) {
