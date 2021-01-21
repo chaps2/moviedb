@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Results from '../components/Results';
 import ResultsFilter from '../components/ResultsFilter';
@@ -7,7 +7,6 @@ import { useLocation, useHistory } from 'react-router-dom';
 import DetailLink from './DetailLink';
 
 import { dataService } from '../App';
-import type { IMovieDS } from '../utility/DataSource';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
