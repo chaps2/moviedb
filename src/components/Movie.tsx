@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import ShowCredits from './ShowCredits';
 import { Card, Properties } from '../styledcomponents';
-import { TMDBMovieDS3, MovieDO } from '../utility/DataSource';
+
+import { DataServiceContext } from '../App';
+import type { IMovieDS, MovieDO } from '../utility/DataSource';
 
 type MovieProps = {
   id: number;
@@ -11,7 +13,7 @@ type MovieProps = {
 const Movie = ({id, DetailLink}: MovieProps) => {
   const [details, setDetails] = useState<MovieDO | undefined>(undefined);
 
-  const tmdb = new TMDBMovieDS3();
+  const tmdb = useContext<IMovieDS>(DataServiceContext);
 
   useEffect(() => {
     tmdb.getMovie((id)).then(

@@ -1,7 +1,9 @@
-import React, {useState, useRef, useEffect, FC} from 'react';
+import React, {useState, useRef, useEffect, useContext} from 'react';
 import { Button } from '../styledcomponents'
 import type { DetailLinkType } from '../utility/Types';
-import { TMDBMovieDS3 } from '../utility/DataSource';
+
+import { DataServiceContext } from '../App';
+import type { IMovieDS } from '../utility/DataSource';
 
 type SearchProps = {
   handleSearchSubmit: (searchTerm: string, searchType: string) => void,
@@ -34,7 +36,7 @@ const AutoSearch = ({handleSearchSubmit, DetailLink, ...props}: SearchProps) => 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm (e.target.value);
 
-    const tmdb = new TMDBMovieDS3();
+    const tmdb = useContext<IMovieDS>(DataServiceContext);
   
     if (e.target.value.trim().length > 4) {
       tmdb.search((e.target.value)).then(

@@ -40,11 +40,17 @@ export interface IMovieDS {
   getMovie: (id: number) => Promise<MovieDO | undefined>;
   getPerson: (id: number) => Promise<PersonDO | undefined>;
   getShow: (id: number) => Promise<ShowDO | undefined>;
+  search: (query: string, type?: string) => Promise<any | undefined>;
 }
 
 export class TMDBMovieDS3 implements IMovieDS {
+  private apiKey: string;
+
+  constructor(apiKey: string) {
+    this.apiKey = apiKey;
+  }
+
   baseUrl = "https://api.themoviedb.org/3/";
-  apiKey = "d6e80f5f86d7dd6c67ac00783d50af52";
 
   getMovie = async (id: number) : Promise<MovieDO | undefined> => this.getDetail(id, 'movie', ["credits"]);
   getPerson = async (id: number) : Promise<PersonDO | undefined> => this.getDetail(id, 'person', ["movie_credits","tv_credits"]);
